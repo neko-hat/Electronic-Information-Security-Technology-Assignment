@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>back_end</RootNamespace>
+    <OutputPath>build\</OutputPath>
+    <FrontPath>..\\front-end\\</FrontPath>
+    <BackPath>.\</BackPath>
+  </PropertyGroup>
+
+
+  <Target Name="BuildJekyll" BeforeTargets="Build" >
+    <Exec WorkingDirectory="$(FrontPath)" Command="npm install" />
+    <Exec WorkingDirectory="$(FrontPath)" Command="bower install" />
+    <Exec WorkingDirectory="$(FrontPath)" Command="bundle install" />
+    <Exec WorkingDirectory="$(FrontPath)" Command="bundle exec jekyll build" />
+    <Exec WorkingDirectory="$(FrontPath)" Command="gulp clean" />
+    <Exec WorkingDirectory="$(FrontPath)" Command="gulp min" />
+  </Target>
+
+  <Target Name="RunUp" BeforeTargets="Publish" >
+    <Exec WorkingDirectory="$(FrontPath)" Command="npm install" />
+    <Exec WorkingDirectory="$(FrontPath)" Command="bower install" />
+    <Exec WorkingDirectory="$(FrontPath)" Command="bundle install" />
+    <Exec WorkingDirectory="$(FrontPath)" Command="bundle exec jekyll build" />
+    <Exec WorkingDirectory="$(FrontPath)" Command="gulp clean" />
+    <Exec WorkingDirectory="$(FrontPath)" Command="gulp min" />
+  </Target>
+</Project>
+ 
