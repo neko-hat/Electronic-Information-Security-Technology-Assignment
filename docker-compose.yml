@@ -1,0 +1,62 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: '3.4'
+
+services:
+  backend:
+    image: backend
+    build:
+      context: .
+      dockerfile: back-end/Dockerfile
+    ports:
+      - 5062:5062
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./datas/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./datas/www:/var/www/certbot
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - backend
+
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:arm32v6-latest
+    restart: unless-stopped
+    volumes:
+      - ./datas/conf:/etc/letsencrypt
+      - ./datas/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+  db:
+    image: mariadb:10.4.12
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=neko_hat
+      - MYSQL_USER=neko_hat
+      - MYSQL_PASSWORD=neko_hat
+      - MYSQL_DATABASE=neko_hat
+    volumes:
+      - .data/mysql:/var/lib/mysql
+    networks:
+        internal:
+    # This command is required to set important mariadb defaults
+    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
+  cache:
+    image: redis:4
+    restart: always
+    volumes:
+    - .data/redis:/data
+    networks:
+        internal:
+
+networks:
+  docker-network:
+    driver: bridge
+  default:
+  internal:
+    internal: true

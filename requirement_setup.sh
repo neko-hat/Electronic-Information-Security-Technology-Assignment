@@ -18,4 +18,4 @@ npm install -g gulp-cli
 npm install -g bower
 
 #install bundler
-gem install bundler
+gem install bundler 

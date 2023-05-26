@@ -1,9 +1,14 @@
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using back_end.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddSingleton<WeatherForecastService>();
 
-builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -15,8 +20,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseDefaultFiles(); // serve index.html
+
 app.UseStaticFiles();
+app.UseDefaultFiles(); // serve index.html
 
 app.UseMvc(routes =>
 {
@@ -24,10 +30,13 @@ app.UseMvc(routes =>
         name: "default",
         template: "{controller}/{action=Index}/{id?}");
 });
-app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.UseRouting();
+
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
 
 app.Run();
