@@ -1,5 +1,6 @@
 # Electronic-Information-Security-Technology-Assignment
 
+
 # Requirement
 
 - Ruby
@@ -9,9 +10,10 @@
 - gulp
 - bower
 
-## project tree
+![image](/readme_asset/image/powered.png)
 
-### back-end
+# project tree
+## back-end
 ```
 back-end
 ├── App.razor
@@ -65,3 +67,4 @@ back-end
             ├── package-lock.json
             └── package.json
 ```
+
