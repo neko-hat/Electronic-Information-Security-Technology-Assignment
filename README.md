@@ -3,12 +3,7 @@
 
 # Requirement
 
-- Ruby
 - blazor
-- bundle
-- nodejs
-- gulp
-- bower
 - docker
 
 # POWERED BY
