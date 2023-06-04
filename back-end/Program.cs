@@ -24,13 +24,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseDefaultFiles(); // serve index.html
 
-app.UseMvc(routes =>
-{
-    routes.MapRoute(
-        name: "default",
-        template: "{controller}/{action=Index}/{id?}");
-});
-
 app.UseAuthorization();
 
 app.MapRazorPages();

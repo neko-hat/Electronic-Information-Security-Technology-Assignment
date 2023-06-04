@@ -2,19 +2,19 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
+EXPOSE 8082
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["back-end.csproj", "."]
+COPY ["./back-end/back-end.csproj", "."]
 RUN dotnet restore "./back-end.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "back-end.csproj" -c Release -o /app/build
+RUN dotnet build "./back-end/back-end.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "back-end.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./back-end/back-end.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

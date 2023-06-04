@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>back_end</RootNamespace>
    <OutputPath>build\</OutputPath>
-    <FrontPath>..\\front-end\\</FrontPath>
+    <FrontPath>.\\front-end\\</FrontPath>
     <BackPath>.\</BackPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <UserSecretsId>b688cfff-66b7-4d1a-9ddd-912ad86887ca</UserSecretsId>
@@ -15,7 +15,7 @@
   </PropertyGroup>
 
 
-  <Target Name="BuildJekyll" BeforeTargets="Build">
+  <!--<Target Name="BuildJekyll" BeforeTargets="Build">
     <Exec WorkingDirectory="$(FrontPath)" Command="npm install" />
     <Exec WorkingDirectory="$(FrontPath)" Command="bower install" />
     <Exec WorkingDirectory="$(FrontPath)" Command="bundle install" />
@@ -31,7 +31,7 @@
     <Exec WorkingDirectory="$(FrontPath)" Command="bundle exec jekyll build" />
     <Exec WorkingDirectory="$(FrontPath)" Command="gulp clean" />
     <Exec WorkingDirectory="$(FrontPath)" Command="gulp min" />
-  </Target>
+  </Target> -->
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
