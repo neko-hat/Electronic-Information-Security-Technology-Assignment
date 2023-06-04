@@ -7,7 +7,7 @@
 - docker
 
 # POWERED BY
-<img src="/readme_asset/image/blazor.webp" width="912px" height="513px" />
+<img src="/readme_asset/image/blazor.webp" width="200px" height="113px" />
 
 # project tree
 ## back-end
