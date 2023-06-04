@@ -9,6 +9,12 @@
 # POWERED BY
 <img src="/readme_asset/image/powered.png" style="margin:auto; display:block;" />
 
+# setup
+
+```bash
+docker-compose up -d
+```
+
 # project tree
 ## back-end
 ```
