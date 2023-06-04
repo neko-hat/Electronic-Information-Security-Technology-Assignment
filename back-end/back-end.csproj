@@ -1,61 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-back_end-c42d28f0-a39b-4e47-a8b4-22e8282bc12d</UserSecretsId>
     <RootNamespace>back_end</RootNamespace>
-   <OutputPath>build\</OutputPath>
-    <FrontPath>.\\front-end\\</FrontPath>
-    <BackPath>.\</BackPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <UserSecretsId>b688cfff-66b7-4d1a-9ddd-912ad86887ca</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
-
-  <!--<Target Name="BuildJekyll" BeforeTargets="Build">
-    <Exec WorkingDirectory="$(FrontPath)" Command="npm install" />
-    <Exec WorkingDirectory="$(FrontPath)" Command="bower install" />
-    <Exec WorkingDirectory="$(FrontPath)" Command="bundle install" />
-    <Exec WorkingDirectory="$(FrontPath)" Command="bundle exec jekyll build" />
-    <Exec WorkingDirectory="$(FrontPath)" Command="gulp clean" />
-    <Exec WorkingDirectory="$(FrontPath)" Command="gulp min" />
-  </Target>
-
-  <Target Name="RunUp" BeforeTargets="Publish">
-    <Exec WorkingDirectory="$(FrontPath)" Command="npm install" />
-    <Exec WorkingDirectory="$(FrontPath)" Command="bower install" />
-    <Exec WorkingDirectory="$(FrontPath)" Command="bundle install" />
-    <Exec WorkingDirectory="$(FrontPath)" Command="bundle exec jekyll build" />
-    <Exec WorkingDirectory="$(FrontPath)" Command="gulp clean" />
-    <Exec WorkingDirectory="$(FrontPath)" Command="gulp min" />
-  </Target> -->
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.16" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.16">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.6" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.2" />
     <PackageReference Include="MySqlConnector" Version="2.2.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Crypt\" />
   </ItemGroup>
 
 </Project>
