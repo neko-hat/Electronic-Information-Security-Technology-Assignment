@@ -1,4 +1,6 @@
 obj/Debug/
 obj/Release/
+bin/Debug/
+bin/Release/
 Migrations/
 sqlites/LocalDatabase.db
