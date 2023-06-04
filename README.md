@@ -11,7 +11,9 @@
 - bower
 - docker
 
-![image](/readme_asset/image/powered.png)
+# POWERED BY
+![image](/readme_asset/image/blazor.webp)
+
 # project tree
 ## back-end
 ```
