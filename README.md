@@ -9,9 +9,9 @@
 - nodejs
 - gulp
 - bower
+- docker
 
 ![image](/readme_asset/image/powered.png)
-
 # project tree
 ## back-end
 ```
