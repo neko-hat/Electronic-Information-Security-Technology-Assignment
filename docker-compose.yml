@@ -15,8 +15,9 @@ services:
     image: nginx:latest
     restart: always
     volumes:
-      - ./datas/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - ./datas/www:/var/www/certbot
+      - ./data/nginx/conf.d:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/www:/var/www/certbot
     ports:
       - 80:80
       - 443:443
@@ -25,11 +26,11 @@ services:
 
   certbot:
     container_name: certbot
-    image: certbot/certbot:arm32v6-latest
+    image: certbot/certbot:amd64-latest
     restart: unless-stopped
     volumes:
-      - ./datas/conf:/etc/letsencrypt
-      - ./datas/www:/var/www/certbot
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   db:
