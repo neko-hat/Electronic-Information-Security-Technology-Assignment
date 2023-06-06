@@ -1,0 +1,60 @@
+﻿/* 전체 페이지 스타일 */
+body {
+    background-color: #1f1f1f; /* 배경색 */
+    color: #fff; /* 텍스트 색상 */
+}
+
+/* 헤더 스타일 */
+header {
+    background-color: #222; /* 배경색 */
+    color: #fff; /* 텍스트 색상 */
+}
+
+.navbar {
+    background-color: #fff; /* 배경색 */
+    color: #000; /* 텍스트 색상 */
+}
+
+.navbar-toggler-icon {
+    background-color: #fff; /* 햄버거 아이콘 배경색 */
+}
+
+/* 컨테이너 스타일 */
+.container {
+    background-color: #1f1f1f; /* 배경색 */
+    color: #fff; /* 텍스트 색상 */
+}
+
+/* 메인 콘텐츠 스타일 */
+main {
+    padding-bottom: 1rem; /* 하단 여백 */
+}
+
+/* 링크 스타일 */
+a {
+    color: #fff; /* 링크 색상 */
+}
+
+    a:hover {
+        color: #bbb; /* 호버시 링크 색상 */
+    }
+
+/* 컨센트 스타일 */
+._CookieConsentPartial {
+    /* 필요한 스타일을 추가하세요 */
+}
+
+/* 스크립트 섹션 스타일 */
+.scripts {
+    /* 필요한 스타일을 추가하세요 */
+}
+
+/* 개발 환경 스타일 */
+.environment {
+    /* 필요한 스타일을 추가하세요 */
+}
+
+    /* 환경 제외 스타일 */
+    .environment.exclude {
+        /* 필요한 스타일을 추가하세요 */
+    }
