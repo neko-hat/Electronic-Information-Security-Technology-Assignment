@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:10.4.12
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=neko_hat
+      - MYSQL_USER=neko_hat
+      - MYSQL_PASSWORD=neko_hat
+      - MYSQL_DATABASE=neko_hat
+    volumes:
+      - ./.data/mysql:/var/lib/mysql
+    ports:
+      - 32912:3306
+
+    # This command is required to set important mariadb defaults
+    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
+  cache:
+    image: redis:4
+    restart: always
+    volumes:
+    - ./.data/redis:/data

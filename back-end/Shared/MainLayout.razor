@@ -2,19 +2,24 @@
 
 <PageTitle>back-end</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
+
+    <header>
+   <div class="top-row px-4 auth d-flex justify-content-between">
+    <div>
         <NavMenu />
     </div>
+    <div>
+        <LoginDisplay />
+    </div>
+</div>
 
-    <main>
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    </header>
+<div class="page">
+    <main class="main-content">
+        <div class="container">
+            <article class="content px-4">
+                @Body
+            </article>
         </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
     </main>
 </div>

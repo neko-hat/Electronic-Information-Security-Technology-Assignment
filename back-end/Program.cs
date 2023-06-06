@@ -12,20 +12,19 @@ using back_end.Crypt;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// use sqlite in development env
-var env = "dev";
+
 //var connectionString = builder.Configuration.GetConnectionString("sqliteConnection") ?? throw new InvalidOperationException("Connection string not found.");
-var connectionString = builder.Configuration.GetConnectionString("mysqlconnection") ?? throw new InvalidOperationException("Connection string not found.");
-connectionString = DecAES.Dec(connectionString);
-if (env == "dev")
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlite(connectionString));
-else
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//var connectionString = builder.Configuration.GetConnectionString("mysqlconnection") ?? throw new InvalidOperationException("Connection string not found.");
+//connectionString = DecAES.Dec(connectionString);
+var connectionString = builder.Configuration.GetConnectionString("devMysql") ?? throw new InvalidOperationException("Connection string not found.");
+
+
+builder.Services.AddDbContext<UserDbContext>(options =>
         options.UseMySQL(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<UserDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
