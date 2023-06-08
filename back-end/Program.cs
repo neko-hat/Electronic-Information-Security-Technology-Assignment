@@ -1,5 +1,6 @@
 using back_end.Areas.Identity;
 using back_end.Data;
+using back_end.Data.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -21,14 +22,17 @@ var connectionString = builder.Configuration.GetConnectionString("devMysql") ?? 
 
 builder.Services.AddDbContext<UserDbContext>(options =>
         options.UseMySQL(connectionString));
+builder.Services.AddDbContext<NekoHatContext>(options =>
+        options.UseMySQL(connectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<UserDbContext>();
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddSingleton<WeatherForecastService>();
+
 
 var app = builder.Build();
 

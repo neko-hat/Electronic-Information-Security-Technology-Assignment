@@ -20,4 +20,4 @@ services:
     image: redis:4
     restart: always
     volumes:
-    - ./.data/redis:/data
+    - ../.data/redis:/data

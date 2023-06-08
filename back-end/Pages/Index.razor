@@ -1,9 +1,112 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@using System.Collections.Generic
+@using back_end.Data
+@using back_end.Data.Models
+@using Microsoft.EntityFrameworkCore
+@inject NekoHatContext DbCon
 
-<h1>Hello, world!</h1>
+@{
 
-Welcome to your new app.
+}
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<PageTitle>도서 목록</PageTitle>
+
+<h1>도서 목록</h1>
+@if (isLoaded)
+{
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>책 제목</th>
+                    <th>작가</th>
+                </tr>
+            </thead>
+            <tbody>
+            @if (VIewBooks != null && VIewBooks.Count > 0)
+            {
+                @foreach (var book in VIewBooks)
+                {
+                                <tr>
+                                    <td>@book.Title</td>
+                        @if (book.Authors.Count > 1)
+                        {
+                                 <td>@foreach (var author in book.Authors)
+                                {
+                                    @author.AuthorName
+                                    <br>
+                                }
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@foreach (var author in book.Authors) { @author.AuthorName}</td>
+                        }
+                                </tr>
+                }
+            }
+            else
+            {
+                        <tr>
+                            <td colspan="3">도서가 없습니다.</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+
+    @if (books != null && books.Count > pageSize)
+    {
+                <nav>
+                    <ul class="pagination">
+                @for (int i = 1; i <= Math.Ceiling((double)books.Count / pageSize); i++)
+                {
+                    int pageNumber = i; // 반복 변수를 분리하여 사용
+
+                                <li class="page-item @(i == currentPage ? "active" : "")">
+                                    <a class="page-link" href="#" @onclick="(() => ChangePage(pageNumber))">@i</a>
+                                </li>
+                }
+                    </ul>
+                </nav>
+    }
+}
+else
+{
+        <h1>Loading...</h1>
+}
+
+
+@code {
+    public List<Book>? books { get; set; }
+    public List<Book>? VIewBooks { get; set; }
+    public bool isLoaded { get; set; }
+    // 페이지 크기와 현재 페이지 번호
+    int pageSize = 30;
+    int currentPage = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoaded = false;
+        await InitAsync();
+        isLoaded = true;
+    }
+
+
+    private async Task InitAsync()
+    {
+        books = await DbCon.Books.Include(m => m.Authors).Take(500).ToListAsync();
+        VIewBooks = GetPageBooks();
+    }
+
+    private List<Book>? GetPageBooks()
+    {
+        return books?.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+    }
+
+    private void ChangePage(int page)
+    {
+        currentPage = page;
+        VIewBooks = GetPageBooks();
+        StateHasChanged();
+    }
+}
