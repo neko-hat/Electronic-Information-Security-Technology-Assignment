@@ -16,9 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 //var connectionString = builder.Configuration.GetConnectionString("sqliteConnection") ?? throw new InvalidOperationException("Connection string not found.");
-var connectionString = builder.Configuration.GetConnectionString("mysqlconnection") ?? throw new InvalidOperationException("Connection string not found.");
-connectionString = DecAES.Dec(connectionString);
-//var connectionString = builder.Configuration.GetConnectionString("devMysql") ?? throw new InvalidOperationException("Connection string not found.");
+//var connectionString = builder.Configuration.GetConnectionString("mysqlconnection") ?? throw new InvalidOperationException("Connection string not found.");
+//connectionString = DecAES.Dec(connectionString);
+var connectionString = builder.Configuration.GetConnectionString("devMysql") ?? throw new InvalidOperationException("Connection string not found.");
 
 
 builder.Services.AddDbContext<UserDbContext>(options =>
