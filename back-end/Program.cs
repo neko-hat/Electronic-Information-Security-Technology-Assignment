@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore;
 using back_end.Crypt;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,15 +23,17 @@ var connectionString = builder.Configuration.GetConnectionString("devMysql") ?? 
 
 builder.Services.AddDbContext<UserDbContext>(options =>
         options.UseMySQL(connectionString));
-builder.Services.AddDbContext<NekoHatContext>(options =>
+builder.Services.AddDbContext<BookDbContext>(options =>
         options.UseMySQL(connectionString));
-
+builder.Services.AddDbContext<rentallistContext>(options =>
+        options.UseMySQL(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<UserDbContext>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 
 

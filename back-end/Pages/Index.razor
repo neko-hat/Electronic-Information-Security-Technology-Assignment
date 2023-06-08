@@ -1,11 +1,18 @@
 ﻿@page "/"
-
+@using Microsoft.AspNetCore.Identity
 @using System.Collections.Generic
 @using back_end.Data
+@using Microsoft.AspNetCore.Mvc.Razor
+@using System.Security.Claims
 @using back_end.Data.Models
 @using Microsoft.EntityFrameworkCore
-@inject NekoHatContext DbCon
-
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components
+@using back_end.Areas.Identity
+@inject BookDbContext DbCon
+@inject rentallistContext RentalCon
+@inject UserManager<IdentityUser> UserManager
+@inject IJSRuntime JSRuntime
 @{
 
 }
@@ -13,6 +20,7 @@
 <PageTitle>도서 목록</PageTitle>
 
 <h1>도서 목록</h1>
+
 @if (isLoaded)
 {
         <table class="table table-dark">
@@ -28,7 +36,7 @@
                 @foreach (var book in VIewBooks)
                 {
                                 <tr>
-                                    <td>@book.Title</td>
+                                    <td @onclick="(() => Rental(book.Title))">@book.Title</td>
                         @if (book.Authors.Count > 1)
                         {
                                  <td>@foreach (var author in book.Authors)
@@ -108,5 +116,63 @@ else
         currentPage = page;
         VIewBooks = GetPageBooks();
         StateHasChanged();
+    }
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    [Inject]
+    UserManager<IdentityUser> userManager { get; set; }
+
+    private async void Rental(string? title)
+    {
+        var user = (await authenticationStateTask).User;
+
+        if ((bool)user?.Identity.IsAuthenticated)
+        {
+            var currentUser = await userManager.GetUserAsync(user);
+            var currentUserEmail = currentUser.Email;
+
+            var entity = await RentalCon.Rentallists.Where(e => e.Email == currentUserEmail).SingleAsync();
+            if(entity != null)
+            {
+                if (entity.List1 == null || entity.List1 == "")
+                {
+                    entity.List1 = title;
+                    await JSRuntime.InvokeVoidAsync("alert", "Success");
+                }
+                else if (entity.List2 == null || entity.List2 == "")
+                {
+                    entity.List2 = title;
+                    await JSRuntime.InvokeVoidAsync("alert", "Success");
+                }
+                else if (entity.List3 == null || entity.List3 == "")
+                {
+                    entity.List3 = title;
+                    await JSRuntime.InvokeVoidAsync("alert", "Success");
+                }
+                else if (entity.List4 == null || entity.List4 == "")
+                {
+                    entity.List4 = title;
+                    await JSRuntime.InvokeVoidAsync("alert", "Success");
+                }
+                else if (entity.List5 == null || entity.List5 == "")
+                {
+                    entity.List5 = title;
+                    await JSRuntime.InvokeVoidAsync("alert", "Success");
+                }
+                else
+                {
+                    await JSRuntime.InvokeVoidAsync("alert", "Full...");
+                    return;
+                }
+                RentalCon.Update(entity);
+                await RentalCon.SaveChangesAsync();
+            }
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "You Can Rent Book After Login!!");
+        }
+
     }
 }

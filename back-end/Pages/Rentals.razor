@@ -1,8 +1,69 @@
 ﻿@page "/rentals"
+@using Microsoft.AspNetCore.Identity
+@using System.Collections.Generic
+@using back_end.Data
+@using Microsoft.AspNetCore.Mvc.Razor
+@using System.Security.Claims
+@using back_end.Data.Models
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components
+@using back_end.Areas.Identity
+@inject BookDbContext DbCon
+@inject rentallistContext RentalCon
 @attribute [Authorize]
 
 <h3>대여 내역</h3>
 
+@if (rentallist != null)
+{
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>대여 리스트</th>
+                <th>@rentallist.List1</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>@rentallist.List2</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>@rentallist.List3</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>@rentallist.List4</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>@rentallist.List5</th>
+            </tr>
+        </thead>
+    </table>
+}
 @code {
+    public Rentallist? rentallist { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    [Inject]
+    UserManager<IdentityUser> userManager { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await authenticationStateTask).User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var currentUser = await userManager.GetUserAsync(user);
+            var currentUserEmail = currentUser.Email;
+            rentallist = await RentalCon.Rentallists.Where(e => e.Email == currentUserEmail).SingleAsync();
+        }
+
+       
+    }
+
     
 }
