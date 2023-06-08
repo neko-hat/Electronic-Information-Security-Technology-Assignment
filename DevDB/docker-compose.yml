@@ -10,7 +10,7 @@ services:
       - MYSQL_PASSWORD=neko_hat
       - MYSQL_DATABASE=neko_hat
     volumes:
-      - ./.data/mysql:/var/lib/mysql
+      - ../.data/mysql:/var/lib/mysql
     ports:
       - 32912:3306
 
