@@ -1,73 +1,61 @@
 # Electronic-Information-Security-Technology-Assignment
 
-
 # Requirement
 
-- blazor
+- .NET 7.0
 - docker
 
-# POWERED BY
 <img src="/readme_asset/image/powered.png" style="margin:auto; display:block;" />
 
-# setup
+`This App runed by docker container by nginx reverse proxy`
+
+## start up
 
 ```bash
 docker-compose up -d
 ```
 
-# project tree
-## back-end
-```
-back-end
-├── App.razor
-├── Data
-│   ├── WeatherForecast.cs
-│   └── WeatherForecastService.cs
-├── Dockerfile
-├── Pages
-│   ├── Counter.razor
-│   ├── Error.cshtml
-│   ├── Error.cshtml.cs
-│   ├── FetchData.razor
-│   ├── Index.razor
-│   ├── _Host.cshtml
-│   └── _Layout.cshtml
-├── Program.cs
-├── Properties
-│   └── launchSettings.json
-├── Shared
-│   ├── MainLayout.razor
-│   ├── MainLayout.razor.css
-│   ├── NavMenu.razor
-│   ├── NavMenu.razor.css
-│   └── SurveyPrompt.razor
-├── _Imports.razor
-├── appsettings.Development.json
-├── appsettings.json
-├── back-end.csproj
-├── back-end.csproj.user
-├── back-end.sln
-├── bin
-│   └── Debug
-│       └── net6.0
-└── build
-    └── net6.0
-        ├── appsettings.Development.json
-        ├── appsettings.json
-        ├── back-end
-        ├── back-end.deps.json
-        ├── back-end.dll
-        ├── back-end.pdb
-        ├── back-end.runtimeconfig.json
-        ├── back-end.staticwebassets.runtime.json
-        ├── back-end.xml
-        └── front-end
-            ├── bower.json
-            ├── docs
-            │   └── assets
-            │       └── images
-            │           └── manifest.json
-            ├── package-lock.json
-            └── package.json
+## shutdown
+```bash
+docker-compose down
 ```
 
+## Security
+
+### SSL
+
+if you want to apply ssl in this application, remove comments in docker-compose.yml
+```yml
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:latest
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    depends_on:
+      - nginx
+   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+```
+then, edit config in `init-letsencrypt.sh`.
+
+and excute `init-letsencrypt.sh`.
+
+### database
+It powered by `EntityFrameWorkCore`.
+That Provides SQL Injection defense.
+
+and I Apply AES Encryption In `mysql connection strings` in `application.json`
+
+```json
+"connectionStrings": {
+    "mysqlconnection": "QW+I7n1OGO6SmTglQs096dhn1Lv4PHVzxgG1GxxxZpvEjx+7cw4wKrmV+FMgifeNt8qZcw6JjJ9Ktuu23Nj41FVws9sC4Wvus/pS2Mu3EAE=",
+    "sqliteConnection": "Data Source=.\\sqlites\\LocalDatabase.db",
+    "devMysql": "Server=localhost;Port=32912;Database=neko_hat;Uid=neko_hat;Pwd=neko_hat;"
+  },
+```
+
+## Sample
+
+![image]("/readme_asset/image/docker_test.png")
