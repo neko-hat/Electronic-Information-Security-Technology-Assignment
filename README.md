@@ -4,10 +4,17 @@
 
 - .NET 7.0
 - docker
+- mysql (mariadb)
 
 <img src="/readme_asset/image/powered.png" style="margin:auto; display:block;" />
 
 `This App runed by docker container by nginx reverse proxy`
+
+## setup database
+
+```bash
+./setup_db.sh
+```
 
 ## start up
 
@@ -21,6 +28,11 @@ docker-compose down
 ```
 
 ## Security
+
+### identity
+
+[**Powered by `IdentityServer`.**](https://docs.duendesoftware.com/identityserver/v6)
+
 
 ### SSL
 
